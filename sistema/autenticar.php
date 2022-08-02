@@ -14,13 +14,20 @@
     $total_registro  = count($resultado_query);
 
     if ($total_registro > 0) {
-        //VAI PARA O PAINEL HOME
-        echo "<script>window.location='painel'</script>";
+
+        //SE O USUARIO ESTIVER ATIVO ELE TEM ACESSO A HOME/PAINEL
+
+        $ativo = $resultado_query[0]['ativo'];  //TRAZENDO O RESULTADO DA QUERY DE CONSULTA NO BD
+
+        if ($ativo == "Sim") {
+            //VAI PARA O PAINEL HOME
+            echo "<script>window.location='painel'</script>";
+        }        
 
     }else{
 
         echo "<script>window.alert('Usuário ou Senha incorretos')</script>";
-        echo "<script>window.location='index.php'</script>";   //REDIRECIONAMENTO
+        echo "<script>window.location='index.php'</script>";   // REDIRECIONAMENTO //
 
     }
 
