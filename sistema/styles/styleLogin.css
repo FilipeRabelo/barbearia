@@ -102,3 +102,15 @@ input:focus {
         font-family: 'Numans', sans-serif;
     }
 }
+
+.hover {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hover:hover {
+    text-decoration: none;
+    color: #FFC312;
+    font-weight: bold;
+    cursor: pointer;
+}

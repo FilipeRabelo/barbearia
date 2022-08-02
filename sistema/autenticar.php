@@ -1,5 +1,7 @@
 <?php 
 
+    @session_start();
+
     require_once("conexao.php");
 
     //Preciso compara com o banco de dados para ver se tem o email e senha la
@@ -16,13 +18,25 @@
     if ($total_registro > 0) {
 
         //SE O USUARIO ESTIVER ATIVO ELE TEM ACESSO A HOME/PAINEL
+        $ativo             = $resultado_query[0]['ativo'];  //RECUPERANDO O RESULTADO DA QUERY DE CONSULTA NO BD
+       
 
-        $ativo = $resultado_query[0]['ativo'];  //TRAZENDO O RESULTADO DA QUERY DE CONSULTA NO BD
+        if ($ativo == "sim") {
 
-        if ($ativo == "Sim") {
+            //SO VAI CRIAR ESSAS SESSOES SE O USUARIO ESTIVER ATIVO
+            $_SESSION['id']    = $resultado_query[0]['id'];
+            $_SESSION['nivel'] = $resultado_query[0]['nivel']; //$_SESSION serve P relacionar as informações dentro do BD
+            $_SESSION['nome']  = $resultado_query[0]['nome']; 
+
             //VAI PARA O PAINEL HOME
             echo "<script>window.location='painel'</script>";
-        }        
+        }else{
+
+            //CASO ESTEJA NAO ATIVO
+            echo "<script>window.alert('Seu Usuário foi DESATIVADO, contate o Administrador ')</script>";
+            echo "<script>window.location='index.php'</script>";   // REDIRECIONAMENTO //
+
+        }
 
     }else{
 
