@@ -1,32 +1,24 @@
+                        <!-- //  PAINEL DE LOGIN //  -->
+
+
 <?php
     require_once("conexao.php");
 
     //INSERIR UM USUARIO ADM CASO NAO EXISTA//
-
     $senha      = "123";
     $senha_crip = md5($senha);
 
     $query           = $conn->query("SELECT * FROM usuarios WHERE nivel = 'Administrador' ");
     $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
-    //AUTENTICAR
-    // if (count($resultado_query) > 0) {
-    //     # code...
-    // }
     $total_registro = count($resultado_query);
-    if ($total_registro > 0) {
 
-        echo "Tem mais Registros: " . $total_registro;
-        
-    }else{
+    if ($total_registro == 0) {
 
         $conn->query("INSERT INTO usuarios SET nome = 'Filipe Rabelo', email = '$email_sistema', 
                         cpf = '000.000.000.00', senha = '$senha', senha_crip = '$senha_crip', 
-                        nivel = 'Administrador', data_cadastro = curDate()");
-
+                        nivel = 'Administrador', data_cadastro = curDate()");              
     }
-
-
 ?>
 
 <!DOCTYPE html>
