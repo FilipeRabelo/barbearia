@@ -112,17 +112,20 @@ if ($total_registro == 0) {
 
             <div class="modal-header">
                 <h5 class="modal-title text-warning text-center" id="exampleModalLabel">Recuperar Senha</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" id="btn-fechar-rec" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <form action="" method="POST">
+            <form action="" method="POST" id="form-recuperar">
                 <div class="modal-body">
-                    <input type="email" name="email" class="form-control" required placeholder="Digite Seu Email Para Recuperar sua Senha">
+                    <input id="email-recuperar" type="email" name="email" class="form-control" required placeholder="Digite Seu Email Para Recuperar sua Senha">
                 </div>
 
-                <div id="msg-recuperar"></div>
+                <br>
+                <small>
+                    <div id="mensagem-recuperar" align="center"></div>
+                </small>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
@@ -131,7 +134,52 @@ if ($total_registro == 0) {
             </form>
 
         </div>
-        
     </div>
 </div>
+<!-- Modal -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- AJAX PARA INSERIR DADOS -->
+<script type="text/javascript">
+    $("#form-recuperar").submit(function() { // NOME DO FORMULARIO
+
+        // $("#msg-recuperar").text("mesnsagem")
+
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "recuperarSenha.php", // LOCAL ONDE ESTA O ARQUIVO Q VAI SER EXECUTADO
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#mensagem-recuperar').text(''); // NOME DA CAIXA DE MSG
+                $('#mensagem-recuperar').removeClass()
+
+                if (mensagem.trim() == "Recuperado com Sucesso") { // O QUE VAI SER DEVOLVIDO DO ARQUIVO
+                    //$('#btn-fechar-rec').click();
+
+                    $('#email-recuperar').val('');
+                    $('#mensagem-recuperar').addClass('text-success')
+                    $('#mensagem-recuperar').text('Sua senha foi enviada para o E-mail')
+
+                } else {
+
+                    $('#mensagem-recuperar').addClass('text-danger')
+                    $('#mensagem-recuperar').text(mensagem)
+                }
+
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+// FIM AJAX PARA INSERIR DADOS //

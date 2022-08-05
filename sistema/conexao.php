@@ -23,7 +23,7 @@
 
    //VARIAVEIS DO SISTEMA 
    $nome_sistema  = "Barbearia Pelo Longo";
-   $email_sistema = "barbeariaPeloLongo@bithive.com.br";
+   $email_sistema = "filipe@bithive.com.br";
   
 
 ?>
