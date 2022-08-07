@@ -102,24 +102,8 @@ require_once("../conexao.php");
 
         });
     </script>
-    <!-- //pie-chart -->
-    <!-- index page sales reviews visitors pie chart -->
-
-    <!-- requried-jsfiles-for owl -->
-    <link href="css/owl.carousel.css" rel="stylesheet">
-    <script src="js/owl.carousel.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo").owlCarousel({
-                items: 3,
-                lazyLoad: true,
-                autoPlay: true,
-                pagination: true,
-                nav: true,
-            });
-        });
-    </script>
-    <!-- //requried-jsfiles-for owl -->
+        <!-- //pie-chart -->
+        <!-- index page sales reviews visitors pie chart -->       
 </head>
 
 <body class="cbp-spmenu-push">
@@ -136,99 +120,31 @@ require_once("../conexao.php");
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <h1><a class="navbar-brand" href="index.html"><span class="fa fa-area-chart"></span> Glance<span class="dashboard_text">Design dashboard</span></a></h1>
+                        <h1><a class="navbar-brand" href="index.html"><span class="fa fa-area-chart"></span> Sistema<span class="dashboard_text"><?= $nome_sistema ?></span></a></h1>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="sidebar-menu">
-                            <li class="header">MAIN NAVIGATION</li>
+
+                            <li class="header">Menu de Navegação</li>
+
                             <li class="treeview">
                                 <a href="index.html">
-                                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                    <i class="fa fa-dashboard"></i> <span>Home</span>
                                 </a>
                             </li>
+
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-laptop"></i>
-                                    <span>Components</span>
+                                    <i class="fa fa-users"></i>
+                                    <span>Pessoas</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="grids.html"><i class="fa fa-angle-right"></i> Grids</a></li>
-                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Media Css</a></li>
+                                    <li><a href="grids.html"><i class="fa fa-angle-right"></i> Usuários</a></li>
+                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Funcionários</a></li>
                                 </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="charts.html">
-                                    <i class="fa fa-pie-chart"></i>
-                                    <span>Charts</span>
-                                    <span class="label label-primary pull-right">new</span>
-                                </a>
-                            </li>
-                            <li class="treeview">
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-laptop"></i>
-                                    <span>UI Elements</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="general.html"><i class="fa fa-angle-right"></i> General</a></li>
-                                    <li><a href="icons.html"><i class="fa fa-angle-right"></i> Icons</a></li>
-                                    <li><a href="buttons.html"><i class="fa fa-angle-right"></i> Buttons</a></li>
-                                    <li><a href="typography.html"><i class="fa fa-angle-right"></i> Typography</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="widgets.html">
-                                    <i class="fa fa-th"></i> <span>Widgets</span>
-                                    <small class="label pull-right label-info">08</small>
-                                </a>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-edit"></i> <span>Forms</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="forms.html"><i class="fa fa-angle-right"></i> General Forms</a></li>
-                                    <li><a href="validation.html"><i class="fa fa-angle-right"></i> Form Validations</a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-table"></i> <span>Tables</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="tables.html"><i class="fa fa-angle-right"></i> Simple tables</a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-envelope"></i> <span>Mailbox </span>
-                                    <i class="fa fa-angle-left pull-right"></i><small class="label pull-right label-info1">08</small><span class="label label-primary1 pull-right">02</span></a>
-                                <ul class="treeview-menu">
-                                    <li><a href="inbox.html"><i class="fa fa-angle-right"></i> Mail Inbox </a></li>
-                                    <li><a href="compose.html"><i class="fa fa-angle-right"></i> Compose Mail </a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-folder"></i> <span>Examples</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="login.html"><i class="fa fa-angle-right"></i> Login</a></li>
-                                    <li><a href="signup.html"><i class="fa fa-angle-right"></i> Register</a></li>
-                                    <li><a href="404.html"><i class="fa fa-angle-right"></i> 404 Error</a></li>
-                                    <li><a href="500.html"><i class="fa fa-angle-right"></i> 500 Error</a></li>
-                                    <li><a href="blank-page.html"><i class="fa fa-angle-right"></i> Blank Page</a></li>
-                                </ul>
-                            </li>
-                            <li class="header">LABELS</li>
-                            <li><a href="#"><i class="fa fa-angle-right text-red"></i> <span>Important</span></a></li>
-                            <li><a href="#"><i class="fa fa-angle-right text-yellow"></i> <span>Warning</span></a></li>
-                            <li><a href="#"><i class="fa fa-angle-right text-aqua"></i> <span>Information</span></a></li>
+                            </li>   
+
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -400,20 +316,6 @@ require_once("../conexao.php");
             </div>
 
             <div class="header-right">
-
-
-                <!--search-box-->
-                <div class="search-box">
-                    <form class="input">
-                        <input class="sb-search-input input__field--madoka" placeholder="Search..." type="search" id="input-31" />
-                        <label class="input__label" for="input-31">
-                            <svg class="graphic" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
-                                <path d="m0,0l404,0l0,77l-404,0l0,-77z" />
-                            </svg>
-                        </label>
-                    </form>
-                </div>
-                <!--//end-search-box-->
 
                 <div class="profile_details">
                     <ul>
