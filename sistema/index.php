@@ -14,7 +14,7 @@ if ($total_registro == 0) {
 
     $conn->query("INSERT INTO usuarios SET nome = 'Filipe Rabelo', email = '$email_sistema', 
                         cpf = '000.000.000.00', senha = '$senha', senha_crip = '$senha_crip', 
-                        nivel = 'Administrador', data_cadastro = curDate(), ativo = 'sim' ");
+                        nivel = 'Administrador', data_cadastro = curDate(), ativo = 'sim', foto = 'sem-foto.jpg' ");
 }
 ?>
 

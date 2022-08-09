@@ -5,6 +5,29 @@
 require_once("verificar.php");
 require_once("../conexao.php");
 
+$id_usuario = $_SESSION['id'];
+
+$query              = $conn->query("SELECT * FROM usuarios WHERE id = '$id_usuario' ");
+$resultado_query    = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
+$total_registro     = count($resultado_query);
+//APOS A CONSULTA OD DADOS VAO PARA AS VARIAVEIS//
+if ($total_registro > 0) {         // ATENCAO // $TOTAL_REGISTRO > 0
+    $nome_usuario     = $resultado_query[0]['nome'];
+    $email_usuario    = $resultado_query[0]['email'];
+    $cpf_usuario      = $resultado_query[0]['cpf'];
+    $senha_usuario    = $resultado_query[0]['senha'];
+    $nivel_usuario    = $resultado_query[0]['nivel'];
+    $telefone_usuario = $resultado_query[0]['telefone'];
+    $endereco_usuario = $resultado_query[0]['endereco'];
+    $foto_usuario     = $resultado_query[0]['foto'];
+}
+
+if (@$_GET['pag'] == "") {
+    $pag = "home";
+} else {
+    $pag = $_GET['pag'];
+}
+
 ?>
 <!-- <a href="logout.php">SAIR</a> -->
 <!DOCTYPE HTML>
@@ -102,17 +125,20 @@ require_once("../conexao.php");
 
         });
     </script>
-        <!-- //pie-chart -->
-        <!-- index page sales reviews visitors pie chart -->       
+    <!-- //pie-chart -->
+    <!-- index page sales reviews visitors pie chart -->
 </head>
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
-        <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+
+        <!-- SIDEBAR -->
+        <div class="cbp-spmenu cbp-spmenu-vertical bg-info cbp-spmenu-left" id="cbp-spmenu-s1">
             <!--left-fixed -navigation-->
             <aside class="sidebar-left">
 
                 <nav class="navbar navbar-inverse">
+
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
@@ -122,13 +148,14 @@ require_once("../conexao.php");
                         </button>
                         <h1><a class="navbar-brand" href="index.html"><span class="fa fa-area-chart"></span> Sistema<span class="dashboard_text"><?= $nome_sistema ?></span></a></h1>
                     </div>
+
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="sidebar-menu">
 
-                            <li class="header">Menu de Navegação</li>
+                            <li class="header text-white">Menu de Navegação</li>
 
                             <li class="treeview">
-                                <a href="index.html">
+                                <a href="index.php">
                                     <i class="fa fa-dashboard"></i> <span>Home</span>
                                 </a>
                             </li>
@@ -140,10 +167,10 @@ require_once("../conexao.php");
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="grids.html"><i class="fa fa-angle-right"></i> Usuários</a></li>
-                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Funcionários</a></li>
+                                    <li><a href="index.php?pag=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
+                                    <li><a href="index.php?pag=funcionarios"><i class="fa fa-angle-right"></i> Funcionários</a></li>
                                 </ul>
-                            </li>   
+                            </li>
 
                         </ul>
                     </div>
@@ -156,6 +183,8 @@ require_once("../conexao.php");
 
         <!-- header-starts -->
         <div class="sticky-header header-section ">
+
+
             <div class="header-left">
                 <!--toggle button start-->
                 <button id="showLeftPush"><i class="fa fa-bars"></i></button>
@@ -315,6 +344,8 @@ require_once("../conexao.php");
                 <div class="clearfix"> </div>
             </div>
 
+
+
             <div class="header-right">
 
                 <div class="profile_details">
@@ -324,8 +355,8 @@ require_once("../conexao.php");
                                 <div class="profile_img">
                                     <span class="prfil-img"><img src="images/2.jpg" alt=""> </span>
                                     <div class="user-name">
-                                        <p>Admin Name</p>
-                                        <span>Administrator</span>
+                                        <p><?= $nome_usuario ?></p>
+                                        <span><?= $nivel_usuario ?></span>
                                     </div>
                                     <i class="fa fa-angle-down lnr"></i>
                                     <i class="fa fa-angle-up lnr"></i>
@@ -333,10 +364,9 @@ require_once("../conexao.php");
                                 </div>
                             </a>
                             <ul class="dropdown-menu drp-mnu">
-                                <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
-                                <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
-                                <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                <li> <a href="#"><i class="fa fa-cog"></i> Configurações</a> </li>
+                                <li> <a href="" data-toggle="modal" data-target="#modalPerfil"><i class="fa fa-suitcase"></i> Editar Perfil</a> </li>
+                                <li> <a href="logout.php"><i class="fa fa-sign-out"></i> Sair</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -357,7 +387,7 @@ require_once("../conexao.php");
 
         <div id="page-wrapper">
 
-            <?= require_once("paginas/home.php") ?>
+            <?= require_once("paginas/" . $pag . ".php") ?>
 
         </div>
 
@@ -383,153 +413,7 @@ require_once("../conexao.php");
         <!--//footer-->
     </div>
 
-    <!-- new added graphs chart js-->
 
-    <script src="js/Chart.bundle.js"></script>
-    <script src="js/utils.js"></script>
-
-    <script>
-        var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var color = Chart.helpers.color;
-        var barChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-                label: 'Dataset 1',
-                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-                borderColor: window.chartColors.red,
-                borderWidth: 1,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ]
-            }, {
-                label: 'Dataset 2',
-                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-                borderColor: window.chartColors.blue,
-                borderWidth: 1,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ]
-            }]
-
-        };
-
-        window.onload = function() {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: barChartData,
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Bar Chart'
-                    }
-                }
-            });
-
-        };
-
-        document.getElementById('randomizeData').addEventListener('click', function() {
-            var zero = Math.random() < 0.2 ? true : false;
-            barChartData.datasets.forEach(function(dataset) {
-                dataset.data = dataset.data.map(function() {
-                    return zero ? 0.0 : randomScalingFactor();
-                });
-
-            });
-            window.myBar.update();
-        });
-
-        var colorNames = Object.keys(window.chartColors);
-        document.getElementById('addDataset').addEventListener('click', function() {
-            var colorName = colorNames[barChartData.datasets.length % colorNames.length];;
-            var dsColor = window.chartColors[colorName];
-            var newDataset = {
-                label: 'Dataset ' + barChartData.datasets.length,
-                backgroundColor: color(dsColor).alpha(0.5).rgbString(),
-                borderColor: dsColor,
-                borderWidth: 1,
-                data: []
-            };
-
-            for (var index = 0; index < barChartData.labels.length; ++index) {
-                newDataset.data.push(randomScalingFactor());
-            }
-
-            barChartData.datasets.push(newDataset);
-            window.myBar.update();
-        });
-
-        document.getElementById('addData').addEventListener('click', function() {
-            if (barChartData.datasets.length > 0) {
-                var month = MONTHS[barChartData.labels.length % MONTHS.length];
-                barChartData.labels.push(month);
-
-                for (var index = 0; index < barChartData.datasets.length; ++index) {
-                    //window.myBar.addData(randomScalingFactor(), index);
-                    barChartData.datasets[index].data.push(randomScalingFactor());
-                }
-
-                window.myBar.update();
-            }
-        });
-
-        document.getElementById('removeDataset').addEventListener('click', function() {
-            barChartData.datasets.splice(0, 1);
-            window.myBar.update();
-        });
-
-        document.getElementById('removeData').addEventListener('click', function() {
-            barChartData.labels.splice(-1, 1); // remove the label first
-
-            barChartData.datasets.forEach(function(dataset, datasetIndex) {
-                dataset.data.pop();
-            });
-
-            window.myBar.update();
-        });
-    </script>
-    <!-- new added graphs chart js-->
-
-    <!-- Classie -->
-    <!-- for toggle left push menu script -->
-    <script src="js/classie.js"></script>
-    <script>
-        var menuLeft = document.getElementById('cbp-spmenu-s1'),
-            showLeftPush = document.getElementById('showLeftPush'),
-            body = document.body;
-
-        showLeftPush.onclick = function() {
-            classie.toggle(this, 'active');
-            classie.toggle(body, 'cbp-spmenu-push-toright');
-            classie.toggle(menuLeft, 'cbp-spmenu-open');
-            disableOther('showLeftPush');
-        };
-
-
-        function disableOther(button) {
-            if (button !== 'showLeftPush') {
-                classie.toggle(showLeftPush, 'disabled');
-            }
-        }
-    </script>
-    <!-- //Classie -->
-    <!-- //for toggle left push menu script -->
 
     <!--scrolling js-->
     <script src="js/jquery.nicescroll.js"></script>
@@ -543,555 +427,6 @@ require_once("../conexao.php");
     </script>
     <!-- //side nav js -->
 
-    <!-- for index page weekly sales java script -->
-    <script src="js/SimpleChart.js"></script>
-    <script>
-        var graphdata1 = {
-            linecolor: "#CCA300",
-            title: "Monday",
-            values: [{
-                    X: "6:00",
-                    Y: 10.00
-                },
-                {
-                    X: "7:00",
-                    Y: 20.00
-                },
-                {
-                    X: "8:00",
-                    Y: 40.00
-                },
-                {
-                    X: "9:00",
-                    Y: 34.00
-                },
-                {
-                    X: "10:00",
-                    Y: 40.25
-                },
-                {
-                    X: "11:00",
-                    Y: 28.56
-                },
-                {
-                    X: "12:00",
-                    Y: 18.57
-                },
-                {
-                    X: "13:00",
-                    Y: 34.00
-                },
-                {
-                    X: "14:00",
-                    Y: 40.89
-                },
-                {
-                    X: "15:00",
-                    Y: 12.57
-                },
-                {
-                    X: "16:00",
-                    Y: 28.24
-                },
-                {
-                    X: "17:00",
-                    Y: 18.00
-                },
-                {
-                    X: "18:00",
-                    Y: 34.24
-                },
-                {
-                    X: "19:00",
-                    Y: 40.58
-                },
-                {
-                    X: "20:00",
-                    Y: 12.54
-                },
-                {
-                    X: "21:00",
-                    Y: 28.00
-                },
-                {
-                    X: "22:00",
-                    Y: 18.00
-                },
-                {
-                    X: "23:00",
-                    Y: 34.89
-                },
-                {
-                    X: "0:00",
-                    Y: 40.26
-                },
-                {
-                    X: "1:00",
-                    Y: 28.89
-                },
-                {
-                    X: "2:00",
-                    Y: 18.87
-                },
-                {
-                    X: "3:00",
-                    Y: 34.00
-                },
-                {
-                    X: "4:00",
-                    Y: 40.00
-                }
-            ]
-        };
-        var graphdata2 = {
-            linecolor: "#00CC66",
-            title: "Tuesday",
-            values: [{
-                    X: "6:00",
-                    Y: 100.00
-                },
-                {
-                    X: "7:00",
-                    Y: 120.00
-                },
-                {
-                    X: "8:00",
-                    Y: 140.00
-                },
-                {
-                    X: "9:00",
-                    Y: 134.00
-                },
-                {
-                    X: "10:00",
-                    Y: 140.25
-                },
-                {
-                    X: "11:00",
-                    Y: 128.56
-                },
-                {
-                    X: "12:00",
-                    Y: 118.57
-                },
-                {
-                    X: "13:00",
-                    Y: 134.00
-                },
-                {
-                    X: "14:00",
-                    Y: 140.89
-                },
-                {
-                    X: "15:00",
-                    Y: 112.57
-                },
-                {
-                    X: "16:00",
-                    Y: 128.24
-                },
-                {
-                    X: "17:00",
-                    Y: 118.00
-                },
-                {
-                    X: "18:00",
-                    Y: 134.24
-                },
-                {
-                    X: "19:00",
-                    Y: 140.58
-                },
-                {
-                    X: "20:00",
-                    Y: 112.54
-                },
-                {
-                    X: "21:00",
-                    Y: 128.00
-                },
-                {
-                    X: "22:00",
-                    Y: 118.00
-                },
-                {
-                    X: "23:00",
-                    Y: 134.89
-                },
-                {
-                    X: "0:00",
-                    Y: 140.26
-                },
-                {
-                    X: "1:00",
-                    Y: 128.89
-                },
-                {
-                    X: "2:00",
-                    Y: 118.87
-                },
-                {
-                    X: "3:00",
-                    Y: 134.00
-                },
-                {
-                    X: "4:00",
-                    Y: 180.00
-                }
-            ]
-        };
-        var graphdata3 = {
-            linecolor: "#FF99CC",
-            title: "Wednesday",
-            values: [{
-                    X: "6:00",
-                    Y: 230.00
-                },
-                {
-                    X: "7:00",
-                    Y: 210.00
-                },
-                {
-                    X: "8:00",
-                    Y: 214.00
-                },
-                {
-                    X: "9:00",
-                    Y: 234.00
-                },
-                {
-                    X: "10:00",
-                    Y: 247.25
-                },
-                {
-                    X: "11:00",
-                    Y: 218.56
-                },
-                {
-                    X: "12:00",
-                    Y: 268.57
-                },
-                {
-                    X: "13:00",
-                    Y: 274.00
-                },
-                {
-                    X: "14:00",
-                    Y: 280.89
-                },
-                {
-                    X: "15:00",
-                    Y: 242.57
-                },
-                {
-                    X: "16:00",
-                    Y: 298.24
-                },
-                {
-                    X: "17:00",
-                    Y: 208.00
-                },
-                {
-                    X: "18:00",
-                    Y: 214.24
-                },
-                {
-                    X: "19:00",
-                    Y: 214.58
-                },
-                {
-                    X: "20:00",
-                    Y: 211.54
-                },
-                {
-                    X: "21:00",
-                    Y: 248.00
-                },
-                {
-                    X: "22:00",
-                    Y: 258.00
-                },
-                {
-                    X: "23:00",
-                    Y: 234.89
-                },
-                {
-                    X: "0:00",
-                    Y: 210.26
-                },
-                {
-                    X: "1:00",
-                    Y: 248.89
-                },
-                {
-                    X: "2:00",
-                    Y: 238.87
-                },
-                {
-                    X: "3:00",
-                    Y: 264.00
-                },
-                {
-                    X: "4:00",
-                    Y: 270.00
-                }
-            ]
-        };
-        var graphdata4 = {
-            linecolor: "Random",
-            title: "Thursday",
-            values: [{
-                    X: "6:00",
-                    Y: 300.00
-                },
-                {
-                    X: "7:00",
-                    Y: 410.98
-                },
-                {
-                    X: "8:00",
-                    Y: 310.00
-                },
-                {
-                    X: "9:00",
-                    Y: 314.00
-                },
-                {
-                    X: "10:00",
-                    Y: 310.25
-                },
-                {
-                    X: "11:00",
-                    Y: 318.56
-                },
-                {
-                    X: "12:00",
-                    Y: 318.57
-                },
-                {
-                    X: "13:00",
-                    Y: 314.00
-                },
-                {
-                    X: "14:00",
-                    Y: 310.89
-                },
-                {
-                    X: "15:00",
-                    Y: 512.57
-                },
-                {
-                    X: "16:00",
-                    Y: 318.24
-                },
-                {
-                    X: "17:00",
-                    Y: 318.00
-                },
-                {
-                    X: "18:00",
-                    Y: 314.24
-                },
-                {
-                    X: "19:00",
-                    Y: 310.58
-                },
-                {
-                    X: "20:00",
-                    Y: 312.54
-                },
-                {
-                    X: "21:00",
-                    Y: 318.00
-                },
-                {
-                    X: "22:00",
-                    Y: 318.00
-                },
-                {
-                    X: "23:00",
-                    Y: 314.89
-                },
-                {
-                    X: "0:00",
-                    Y: 310.26
-                },
-                {
-                    X: "1:00",
-                    Y: 318.89
-                },
-                {
-                    X: "2:00",
-                    Y: 518.87
-                },
-                {
-                    X: "3:00",
-                    Y: 314.00
-                },
-                {
-                    X: "4:00",
-                    Y: 310.00
-                }
-            ]
-        };
-        var Piedata = {
-            linecolor: "Random",
-            title: "Profit",
-            values: [{
-                    X: "Monday",
-                    Y: 50.00
-                },
-                {
-                    X: "Tuesday",
-                    Y: 110.98
-                },
-                {
-                    X: "Wednesday",
-                    Y: 70.00
-                },
-                {
-                    X: "Thursday",
-                    Y: 204.00
-                },
-                {
-                    X: "Friday",
-                    Y: 80.25
-                },
-                {
-                    X: "Saturday",
-                    Y: 38.56
-                },
-                {
-                    X: "Sunday",
-                    Y: 98.57
-                }
-            ]
-        };
-        $(function() {
-            $("#Bargraph").SimpleChart({
-                ChartType: "Bar",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                data: [graphdata4, graphdata3, graphdata2, graphdata1],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-            $("#sltchartype").on('change', function() {
-                $("#Bargraph").SimpleChart('ChartType', $(this).val());
-                $("#Bargraph").SimpleChart('reload', 'true');
-            });
-            $("#Hybridgraph").SimpleChart({
-                ChartType: "Hybrid",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                data: [graphdata4],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-            $("#Linegraph").SimpleChart({
-                ChartType: "Line",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: false,
-                data: [graphdata4, graphdata3, graphdata2, graphdata1],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-            $("#Areagraph").SimpleChart({
-                ChartType: "Area",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                data: [graphdata4, graphdata3, graphdata2, graphdata1],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-            $("#Scatterredgraph").SimpleChart({
-                ChartType: "Scattered",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                data: [graphdata4, graphdata3, graphdata2, graphdata1],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-            $("#Piegraph").SimpleChart({
-                ChartType: "Pie",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                showpielables: true,
-                data: [Piedata],
-                legendsize: "250",
-                legendposition: 'right',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-
-            $("#Stackedbargraph").SimpleChart({
-                ChartType: "Stacked",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                data: [graphdata3, graphdata2, graphdata1],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-
-            $("#StackedHybridbargraph").SimpleChart({
-                ChartType: "StackedHybrid",
-                toolwidth: "50",
-                toolheight: "25",
-                axiscolor: "#E6E6E6",
-                textcolor: "#6E6E6E",
-                showlegends: true,
-                data: [graphdata3, graphdata2, graphdata1],
-                legendsize: "140",
-                legendposition: 'bottom',
-                xaxislabel: 'Hours',
-                title: 'Weekly Profit',
-                yaxislabel: 'Profit in $'
-            });
-        });
-    </script>
-    <!-- //for index page weekly sales java script -->
-
-
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.js"> </script>
     <!-- //Bootstrap Core JavaScript -->
@@ -1099,3 +434,104 @@ require_once("../conexao.php");
 </body>
 
 </html>
+
+<!-- Mascaras JS -->
+<script type="text/javascript" src="js/mascaras.js"></script>
+
+<!-- Ajax para funcionar Mascaras JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+<!-- Modal PERFIL-->
+<div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="modal-title text-warning text-center" id="exampleModalLabel">Editar Perfil</h3>
+                <button type="button" id="btn-fechar-rec" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="" method="POST" id="form-perfil">
+                <!-- <div class="">
+                    <input id="email-recuperar" type="email" name="email" class="form-control" required placeholder="Digite Seu Email Para Recuperar sua Senha">
+                </div> -->
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nome</label><br>
+                                <input type="text" class="form-control" id="nome-perfil" value="<?= $nome_usuario ?>" name="nome" placeholder="Seu nome" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label><br>
+                                <input type="email" class="form-control" id="email-perfil" value="<?= $email_usuario ?>" name="email" placeholder="Seu E-mail" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Telefone</label><br>
+                                <input type="text" class="form-control" id="telefone-perfil" value="<?= $telefone_usuario ?>" name="telefone" placeholder="Seu Telefone">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cpf-perfil">CPF</label><br>
+                                <input type="text" class="form-control" id="cpf-perfil" name="cpf" placeholder="Seu CPF">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Senha</label><br>
+                                <input type="password" class="form-control" id="senha-perfil" value="<?= $senha_usuario ?>" name="senha" placeholder="Sua Senha" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Confirmar Senha</label><br>
+                                <input type="password" class="form-control" id="conf-senha-perfil" name="conf_senha" placeholder="Confirme sua Senha" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Endereço</label><br>
+                                <input type="text" class="form-control" id="endereco-perfil" value="<?= $endereco_usuario ?>" name="endereco" placeholder="Seu Endereço">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                
+                <small>
+                    <div id="mensagem-perfil" align="center"></div>
+                </small>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Editar Perfil</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
