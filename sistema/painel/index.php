@@ -353,7 +353,7 @@ if (@$_GET['pag'] == "") {
                         <li class="dropdown profile_details_drop">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <div class="profile_img">
-                                    <span class="prfil-img"><img src="images/2.jpg" alt=""> </span>
+                                    <span class="prfil-img"><img src="img/perfil/<?= $foto_usuario ?>" alt="" width="50" height="50"> </span>
                                     <div class="user-name">
                                         <p><?= $nome_usuario ?></p>
                                         <span><?= $nivel_usuario ?></span>
@@ -437,9 +437,9 @@ if (@$_GET['pag'] == "") {
 
 <!-- Mascaras JS -->
 <script type="text/javascript" src="js/mascaras.js"></script>
-
 <!-- Ajax para funcionar Mascaras JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<!-- Mascaras JS -->
 
 <!-- Modal PERFIL-->
 <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -517,17 +517,31 @@ if (@$_GET['pag'] == "") {
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <input class="form-control" type="file" name="foto" onChange="carregarImgPerfil();" id="foto-usu">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="divImg">
+                                <img src="img/perfil/<?php echo $foto_usuario ?>" width="100px" id="target-usu">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <br>
-                
+
                 <small>
                     <div id="mensagem-perfil" align="center"></div>
                 </small>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Editar Perfil</button>
+                    <button type="submit" class="btn btn-primary">Salvar Perfil</button>
                 </div>
             </form>
 
