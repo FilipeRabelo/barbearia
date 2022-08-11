@@ -184,7 +184,6 @@ if (@$_GET['pag'] == "") {
         <!-- header-starts -->
         <div class="sticky-header header-section ">
 
-
             <div class="header-left">
                 <!--toggle button start-->
                 <button id="showLeftPush"><i class="fa fa-bars"></i></button>
@@ -344,8 +343,6 @@ if (@$_GET['pag'] == "") {
                 <div class="clearfix"> </div>
             </div>
 
-
-
             <div class="header-right">
 
                 <div class="profile_details">
@@ -414,7 +411,6 @@ if (@$_GET['pag'] == "") {
     </div>
 
 
-
     <!--scrolling js-->
     <script src="js/jquery.nicescroll.js"></script>
     <script src="js/scripts.js"></script>
@@ -448,7 +444,7 @@ if (@$_GET['pag'] == "") {
 
             <div class="modal-header">
                 <h3 class="modal-title text-warning text-center" id="exampleModalLabel">Editar Perfil</h3>
-                <button type="button" id="btn-fechar-rec" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" id="btn-fechar-perfil" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -548,4 +544,74 @@ if (@$_GET['pag'] == "") {
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- FIM Modal -->
+
+
+<!-- CDN AJAX PARA DISPARAR REQUISIÇÂO -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- AJAX PARA INSERIR DADOS -->
+<script type="text/javascript">
+    $("#form-perfil").submit(function() { // NOME DO FORMULARIO
+
+        // $("#msg-recuperar").text("mesnsagem")
+
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "editar-perfil.php", // LOCAL ONDE ESTA O ARQUIVO Q VAI SER EXECUTADO
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+                $('#mensagem-perfil').text(''); // NOME DA CAIXA DE MSG
+                $('#mensagem-perfil').removeClass()
+
+                if (mensagem.trim() == "Editado com Sucesso") { // O QUE VAI SER DEVOLVIDO DO ARQUIVO
+
+                    $('#btn-fechar-perfil').click();
+                    location.reload();
+
+                } else {
+
+                    $('#mensagem-perfil').addClass('text-danger')
+                    $('#mensagem-perfil').text(mensagem)
+                }
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        });
+
+    });
+</script>
+<!-- // FIM AJAX PARA INSERIR DADOS // -->
+
+
+<!-- script carregar imagen -->
+
+<script type="text/javascript">
+    function carregarImgPerfil() {
+        var target = document.getElementById('target-usu');
+        var file = document.querySelector("#foto-usu").files[0];
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
+
+<!-- script carregar imagen -->

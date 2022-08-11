@@ -182,4 +182,4 @@ if ($total_registro == 0) {
 
     });
 </script>
-// FIM AJAX PARA INSERIR DADOS //
+<!-- // FIM AJAX PARA INSERIR DADOS // -->
