@@ -529,6 +529,8 @@ if (@$_GET['pag'] == "") {
 
                 </div>
 
+                <input type="hidden" name="id" value="<?= $id_usuario ?>" id="">
+
                 <br>
 
                 <small>

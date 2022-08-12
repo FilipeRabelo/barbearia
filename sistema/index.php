@@ -5,6 +5,7 @@ require_once("conexao.php");
 $senha      = "123";
 $senha_crip = md5($senha);
 
+// verificações / consultas
 $query           = $conn->query("SELECT * FROM usuarios WHERE nivel = 'Administrador' ");
 $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
