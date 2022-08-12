@@ -6,7 +6,7 @@ $senha      = "123";
 $senha_crip = md5($senha);
 
 // verificações / consultas
-$query           = $conn->query("SELECT * FROM usuarios WHERE nivel = 'Administrador' ");
+$query           = $pdo->query("SELECT * FROM usuarios WHERE nivel = 'Administrador' ");
 $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
 $total_registro  = count($resultado_query);

@@ -10,7 +10,7 @@
     $senha = $_POST['senha'];
 
     //PARA CONSULTAS NO BANCO
-    $query           = $conn->query("SELECT * FROM usuarios WHERE email = '$email' AND senha = $senha ");
+    $query           = $pdo->query("SELECT * FROM usuarios WHERE email = '$email' AND senha = $senha ");
     $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
     $total_registro  = count($resultado_query);

@@ -4,7 +4,7 @@
 
     $email = $_POST['email'];
 
-    $query           = $conn->query("SELECT * FROM usuarios WHERE email = '$email' ");
+    $query           = $pdo->query("SELECT * FROM usuarios WHERE email = '$email' ");
     $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
     $total_registro  = count($resultado_query);
 

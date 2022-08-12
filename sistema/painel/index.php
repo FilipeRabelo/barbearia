@@ -7,7 +7,7 @@ require_once("../conexao.php");
 
 $id_usuario = $_SESSION['id'];
 
-$query              = $conn->query("SELECT * FROM usuarios WHERE id = '$id_usuario' ");
+$query              = $pdo->query("SELECT * FROM usuarios WHERE id = '$id_usuario' ");
 $resultado_query    = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 $total_registro     = count($resultado_query);
 //APOS A CONSULTA OD DADOS VAO PARA AS VARIAVEIS//
@@ -571,7 +571,7 @@ if (@$_GET['pag'] == "") {
                 $('#mensagem-perfil').text(''); // NOME DA CAIXA DE MSG
                 $('#mensagem-perfil').removeClass()
 
-                if (mensagem.trim() == "Editado com Sucesso") { // O QUE VAI SER DEVOLVIDO DO ARQUIVO
+                if (mensagem.trim() == "Editado com Sucesso!!") { // O QUE VAI SER DEVOLVIDO DO ARQUIVO
 
                     $('#btn-fechar-perfil').click();
                     location.reload();
@@ -615,5 +615,7 @@ if (@$_GET['pag'] == "") {
         }
     }
 </script>
+
+
 
 <!-- script carregar imagen -->

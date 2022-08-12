@@ -10,6 +10,9 @@ $cpf        = $_POST['cpf'];
 $senha      = $_POST['senha'];
 $conf_senha = $_POST['conf_senha'];
 $endereco   = $_POST['endereco'];
+$senha_crip = md5($senha);
+
+$foto = '';
 
 
 // VERIFICAÇÕES
@@ -21,7 +24,7 @@ if ($senha != $conf_senha) {
 }
 
 //VALIDAR EMAIL
-$query           = $conn->query("SELECT * FROM usuarios WHERE email = '$email' ");
+$query           = $pdo->query("SELECT * FROM usuarios WHERE email = '$email' ");
 $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
 if (@count($resultado_query) > 0 && $id != $resultado_query[0]['id']) {
@@ -30,7 +33,7 @@ if (@count($resultado_query) > 0 && $id != $resultado_query[0]['id']) {
 }
 
 //VALIDAR CPF
-$query           = $conn->query("SELECT * FROM usuarios WHERE cpf = '$cpf' ");
+$query           = $pdo->query("SELECT * FROM usuarios WHERE cpf = '$cpf' ");
 $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
 if (@count($resultado_query) > 0 && $id != $resultado_query[0]['id']) {
@@ -39,8 +42,25 @@ if (@count($resultado_query) > 0 && $id != $resultado_query[0]['id']) {
 }
 
 
-//ATUALIZAÇÃO UPDATE
 
-$query           = $conn->prepare("UPDATE usuarios WHERE nome = ':nome' ");
+//ATUALIZAÇÃO UPDATE
+//PREPARANDO O PREPARE 
+$query           = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, cpf = :cpf, senha = :senha,
+                                    senha_crip = '$senha_crip', endereco = :endereco, foto = '$foto' WHERE id = '$id' ");
+
+//EXECUTANDO O PREPARE
+//PASSANDO OS VALORES
+
+//PODEMOS USAR bindValue OU bindParam
+$query->bindValue(":nome", "$nome");  //O PARAMENTRO RECEBE A VARIAVEL Q FOI PASSADA
+$query->bindValue(":email", "$email");
+$query->bindValue(":telefone" , "$telefone");
+$query->bindValue(":cpf", "$cpf");
+$query->bindValue(":senha", "$senha");
+$query->bindValue(":endereco", "$endereco");
+
+$query->execute();
+
+echo "Editado com Sucesso!!";   //MSG EXIBIDA APOS UPDATE TEM Q SER IGUAL A PASSADA NO AJAX //
 
 ?>
