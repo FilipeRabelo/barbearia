@@ -41,6 +41,46 @@ if (@count($resultado_query) > 0 && $id != $resultado_query[0]['id']) {
     exit();
 }
 
+///////////////////////////////////////////////////////////////
+
+//VALIDAR TROCA DA FOTO
+$query = $pdo->query("SELECT * FROM usuarios where id = '$id'");   //VERIFICA O USUARIO E TRAZ O TOTAL DE REGISTRO
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+if ($total_reg > 0) {
+    $foto = $res[0]['foto'];  //SELECIONAOU O USUARIO ELE VAI RECUPERAR O CAMPO FOTO DELE
+} else {
+    $foto = 'sem-foto.jpg';  //ATENTAR PELA EXTENSAO DA FOTO (ARQUIVO)
+}
+
+//SCRIPT PARA SUBIR FOTO NO SERVIDOR
+$nome_img = date('d-m-Y H:i:s') . '-' . @$_FILES['foto']['name'];  //foto é o name do input
+$nome_img = preg_replace('/[ :]+/', '-', $nome_img);
+
+$caminho = 'img/perfil/' . $nome_img;  //caminho qeu vai ser inserida
+
+$imagem_temp = @$_FILES['foto']['tmp_name'];
+
+if (@$_FILES['foto']['name'] != "") {
+    $ext = pathinfo($nome_img, PATHINFO_EXTENSION);
+    if ($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif') {  //somente extensao de imagem
+
+        //SE TIVER EDITANDO ELE EXCLUI A FOTO ANTERIOR
+        //EXCLUO A FOTO ANTERIOR
+        if ($foto != "sem-foto.jpg") {
+            @unlink('img/perfil/' . $foto);  //ele tira a foto fora
+        }
+
+        $foto = $nome_img; // e colcoa a foto nova
+
+        move_uploaded_file($imagem_temp, $caminho);
+    } else {
+        echo 'Extensão de Imagem não permitida!';
+        exit();
+    }
+}
+//FIM SCRIPT PARA SUBIR FOTO NO SERVIDOR
+
 
 
 //ATUALIZAÇÃO UPDATE

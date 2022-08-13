@@ -146,7 +146,7 @@ if (@$_GET['pag'] == "") {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <h1><a class="navbar-brand" href="index.html"><span class="fa fa-area-chart"></span> Sistema<span class="dashboard_text"><?= $nome_sistema ?></span></a></h1>
+                        <h1><a class="navbar-brand" href="index.php"><span class="fa fa-area-chart"></span> Sistema<span class="dashboard_text"><?= $nome_sistema ?></span></a></h1>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -431,7 +431,7 @@ if (@$_GET['pag'] == "") {
 
 </html>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
 <!-- Mascaras JS -->
 <script type="text/javascript" src="js/mascaras.js"></script>
@@ -484,7 +484,7 @@ if (@$_GET['pag'] == "") {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="cpf-perfil">CPF</label><br>
-                                <input type="text" class="form-control" id="cpf-perfil" name="cpf" placeholder="Seu CPF" <?= $cpf_usuario ?>>
+                                <input type="text" class="form-control" id="cpf-perfil" name="cpf" placeholder="Seu CPF" value="<?= $cpf_usuario ?> ">
                             </div>
                         </div>
                     </div>

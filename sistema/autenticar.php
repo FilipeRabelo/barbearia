@@ -6,12 +6,19 @@
 
     //Preciso compara com o banco de dados para ver se tem o email e senha la
 
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $email      = $_POST['email'];
+    $senha      = $_POST['senha'];
+    $senha_crip = md5($senha);
 
     //PARA CONSULTAS NO BANCO
-    $query           = $pdo->query("SELECT * FROM usuarios WHERE email = '$email' AND senha = $senha ");
+    $query           = $pdo->prepare("SELECT * FROM usuarios WHERE (email = :email or cpf = :email) AND senha_crip = :senha ");
+   
+    $query->bindValue(":email", $email);
+    $query->bindValue(":senha", $senha_crip);
+    $query->execute();
+
     $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
+
 
     $total_registro  = count($resultado_query);
 
