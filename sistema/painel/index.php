@@ -431,6 +431,8 @@ if (@$_GET['pag'] == "") {
 
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <!-- Mascaras JS -->
 <script type="text/javascript" src="js/mascaras.js"></script>
 <!-- Ajax para funcionar Mascaras JS -->
@@ -482,7 +484,7 @@ if (@$_GET['pag'] == "") {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="cpf-perfil">CPF</label><br>
-                                <input type="text" class="form-control" id="cpf-perfil" name="cpf" placeholder="Seu CPF">
+                                <input type="text" class="form-control" id="cpf-perfil" name="cpf" placeholder="Seu CPF" <?= $cpf_usuario ?>>
                             </div>
                         </div>
                     </div>
@@ -551,7 +553,7 @@ if (@$_GET['pag'] == "") {
 
 <!-- CDN AJAX PARA DISPARAR REQUISIÇÂO -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <!-- AJAX PARA INSERIR DADOS -->
 <script type="text/javascript">
