@@ -20,6 +20,7 @@ if ($total_registro > 0) {         // ATENCAO // $TOTAL_REGISTRO > 0
     $telefone_usuario = $resultado_query[0]['telefone'];
     $endereco_usuario = $resultado_query[0]['endereco'];
     $foto_usuario     = $resultado_query[0]['foto'];
+    
 }
 
 if (@$_GET['pag'] == "") {

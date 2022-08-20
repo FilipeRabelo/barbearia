@@ -9,13 +9,13 @@ $senha_crip = md5($senha);
 $query           = $pdo->query("SELECT * FROM usuarios WHERE nivel = 'Administrador' ");
 $resultado_query = $query->fetchAll(PDO::FETCH_ASSOC);  //EXECUTANDO A CONSULTA NO BD
 
-$total_registro  = count($resultado_query);
+$total_registro  = @count($resultado_query);
 
 if ($total_registro == 0) {
 
-    $conn->query("INSERT INTO usuarios SET nome = 'Filipe Rabelo', email = '$email_sistema', 
+    $pdo->query("INSERT INTO usuarios SET nome = 'Filipe Rabelo', email = '$email_sistema', 
                         cpf = '000.000.000.00', senha = '$senha', senha_crip = '$senha_crip', 
-                        nivel = 'Administrador', data_cadastro = curDate(), ativo = 'sim', foto = 'sem-foto.jpg' ");
+                        nivel = 'Administrador', data = curDate(), ativo = 'sim', foto = 'sem-foto.jpg' ");
 }
 ?>
 

@@ -1,5 +1,7 @@
 // AJAX PARA LISTAR DADOS
 
+//Codigo para ser reutilizado
+
 //INICIANDO O DOCUMENTO
 $(document).ready(function() {
     listar();

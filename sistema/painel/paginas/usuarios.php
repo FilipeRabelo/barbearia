@@ -8,14 +8,13 @@ $pag = 'usuarios';
 
 ?>
 
-    <div class="">
-        <a class="btn btn-primary">Novo Usuario</a>
-    </div>
+<div class="">
+    <a class="btn btn-primary">Novo Usuario</a>
+</div>
 
+<div class="bs-example widget-shadow" style="padding:15px;" id="listar">
 
-    <div class="bs-example widget-shadow" style="padding:15px;" id="listar">
-
-    </div>
+</div>
 
 <script type="text/javascript">
     var pag = "<?=$pag?>"  // traznedo uma variavel do php para o Js
