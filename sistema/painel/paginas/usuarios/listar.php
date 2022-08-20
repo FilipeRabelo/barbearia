@@ -121,3 +121,10 @@ HTML;
     echo " Não possui nenhum registro cadastrado!!";
 
 }
+?>
+
+<script type="text/javascript">
+    function mostrar(nome, email, cpf, senha, nivel, dataF, ativo, telefone, endereco, foto){
+       
+    }
+</script>
