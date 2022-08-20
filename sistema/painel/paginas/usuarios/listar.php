@@ -33,8 +33,9 @@ if ($total_registro > 0) {
 HTML;
 
     for ($i = 0; $i < $total_registro; $i++) {
-        foreach ($resultado_query[$i] as $key => $value) {
-        }
+
+        foreach ($resultado_query[$i] as $key => $value) { }
+
         $id       = $resultado_query[$i]["id"];
         $nome     = $resultado_query[$i]["nome"];
         $email    = $resultado_query[$i]["email"];
@@ -82,10 +83,15 @@ HTML;
         <td class="esc">{$nivel} </td> 
         <td class="esc">{$ativo} </td> 
         <td class="esc">{$dataF} </td> 
-        <td><a href="#" onclick="editar()" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
-        <a href="#" onclick="mostrar()" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a>
+
+        <td>
+        <a href="#" onclick="editar()" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+
+        <a href="#" onclick="mostrar('{$nome}', '{$email}', '{$cpf}', '{$senha}', '{$nivel}', '{$dataF}', '{$ativo}', '{$telefone}', '{$endereco}', '{$foto}',)" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a>
+        
         <li class="dropdown head-dpdn2" style="display: inline-block;">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-trash-o text-danger"></i></a>
+        
         <ul class="dropdown-menu" style="margin-left:-230px;">
         <li>
         <div class="notification_desc2">
@@ -94,19 +100,24 @@ HTML;
         </li>										
         </ul>
         </li>
+
         <a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a>
-        </td>
+        
+    </td>
     </tr>
     HTML;
-    }
+    }  //FECHAMENTO DO FOR
 
     //PARA FECHAR
     echo <<<HTML
     </tbody>
+    <small><div align="center" id="mensagem-excluir"></div></small>
     </table>
     <!-- </small> -->
 HTML;
+
 } else {
 
     echo " Não possui nenhum registro cadastrado!!";
+
 }
