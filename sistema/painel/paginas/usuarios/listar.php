@@ -34,7 +34,8 @@ HTML;
 
     for ($i = 0; $i < $total_registro; $i++) {
 
-        foreach ($resultado_query[$i] as $key => $value) { }
+        foreach ($resultado_query[$i] as $key => $value) {
+        }
 
         $id       = $resultado_query[$i]["id"];
         $nome     = $resultado_query[$i]["nome"];
@@ -87,7 +88,7 @@ HTML;
         <td>
         <a href="#" onclick="editar()" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
 
-        <a href="#" onclick="mostrar('{$nome}', '{$email}', '{$cpf}', '{$senha}', '{$nivel}', '{$dataF}', '{$ativo}', '{$telefone}', '{$endereco}', '{$foto}',)" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a>
+        <a href="#" onclick="mostrar('{$nome}', '{$email}', '{$cpf}', '{$senhaF}', '{$nivel}', '{$dataF}', '{$ativo}', '{$telefone}', '{$endereco}', '{$foto}',)" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a>
         
         <li class="dropdown head-dpdn2" style="display: inline-block;">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-trash-o text-danger"></i></a>
@@ -115,16 +116,29 @@ HTML;
     </table>
     <!-- </small> -->
 HTML;
-
 } else {
 
     echo " Não possui nenhum registro cadastrado!!";
-
 }
 ?>
 
 <script type="text/javascript">
-    function mostrar(nome, email, cpf, senha, nivel, dataF, ativo, telefone, endereco, foto){
-       
+    function mostrar(nome, email, cpf, senha, nivel, data, ativo, telefone, endereco, foto) {
+        // alert("Teste.");
+
+        $('#nome_dados').text(nome);
+        $('#email_dados').text(email);
+        $('#cpf_dados').text(cpf);
+        $('#senha_dados').text(senha);
+        $('#nivel_dados').text(nivel);
+        $('#data_dados').text(data);
+        $('#ativo_dados').text(ativo);
+        $('#telefone_dados').text(telefone);
+        $('#endereco_dados').text(endereco);
+
+        $('#target_mostrar').attr('src', 'img/perfil/' + foto);
+
+        $('#modalDados').modal('show');
+
     }
 </script>

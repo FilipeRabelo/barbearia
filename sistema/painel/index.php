@@ -20,7 +20,6 @@ if ($total_registro > 0) {         // ATENCAO // $TOTAL_REGISTRO > 0
     $telefone_usuario = $resultado_query[0]['telefone'];
     $endereco_usuario = $resultado_query[0]['endereco'];
     $foto_usuario     = $resultado_query[0]['foto'];
-    
 }
 
 if (@$_GET['pag'] == "") {
@@ -36,6 +35,7 @@ if (@$_GET['pag'] == "") {
 
 <head>
     <title><?= $nome_sistema ?></title>
+    <link rel="icon" type="image/png" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
